@@ -1,8 +1,5 @@
-package com.example.twm.filter;
+package com.example.twm.jwt;
 
-import com.example.twm.domain.jwt.JwtAuthentication;
-import com.example.twm.service.impl.JwtProvider;
-import com.example.twm.service.impl.JwtUtils;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

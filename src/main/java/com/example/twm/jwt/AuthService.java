@@ -1,15 +1,15 @@
-package com.example.twm.service.impl;
+package com.example.twm.jwt;
 
 import com.example.twm.domain.User;
-import com.example.twm.domain.jwt.JwtAuthentication;
-import com.example.twm.domain.jwt.JwtRequest;
-import com.example.twm.domain.jwt.JwtResponse;
 import com.example.twm.exception.AuthException;
+import com.example.twm.service.impl.UserService;
 import io.jsonwebtoken.Claims;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -23,11 +23,12 @@ public class AuthService {
     private final UserService userService;
     private final Map<String, String> refreshStorage = new HashMap<>();
     private final JwtProvider jwtProvider;
+    private final PasswordEncoder passwordEncoder;
 
-    public JwtResponse login(@NonNull JwtRequest authRequest){
+    public JwtResponse login(@NonNull JwtRequest authRequest) {
         final User user = userService.getByEmail(authRequest.getLogin())
                 .orElseThrow(() -> new AuthException("Пользователь не найден"));
-        if (user.getPassword().equals(authRequest.getPassword())) {
+        if (passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
             final String accessToken = jwtProvider.generateAccessToken(user);
             final String refreshToken = jwtProvider.generateRefreshToken(user);
             refreshStorage.put(user.getEmail(), refreshToken);

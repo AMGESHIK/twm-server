@@ -1,4 +1,4 @@
-package com.example.twm.util;
+package com.example.twm.jwt;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Encoders;

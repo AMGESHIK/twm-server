@@ -27,22 +27,26 @@ public class User implements UserDetails {
 
     @Email
     @NotBlank
-    @Size(min = 3)
+    @Size(max = 50)
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @NotBlank
-    @Size(min = 1)
+    @Size(min = 3, max = 20)
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @Size(max=40)
+    @Column(name = "name")
+    private String name;
+
+    @Size(max=600)
+    @Column(name = "about")
+    private String about;
+
     @NotBlank
-    @Size(min = 4)
     @Column(name = "password", nullable = false)
     private String password;
-
-    @Transient
-    private String passwordConfirm;
 
     @Column(name = "is_active")
     private boolean isActive;

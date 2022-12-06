@@ -1,4 +1,4 @@
-package com.example.twm.domain.jwt;
+package com.example.twm.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.example.twm.service.impl;
+package com.example.twm.jwt;
 
 import com.example.twm.domain.User;
 import io.jsonwebtoken.Claims;
@@ -44,7 +44,7 @@ public class JwtProvider {
                 .setExpiration(accessExpiration)
                 .signWith(jwtAccessSecret)
                 .claim("roles", user.getRoles())
-                .claim("firstName", user.getUsername())
+                .claim("username", user.getUsername())
                 .compact();
     }
 

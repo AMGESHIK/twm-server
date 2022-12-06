@@ -27,5 +27,13 @@ public class UserService implements UserDetailsService {
         return userRepo.findByEmail(email);
     }
 
+    public void saveUser(User user){
+        userRepo.save(user);
+    }
+
+    public boolean userExist(User user){
+        return userRepo.findByEmail(user.getEmail()).isPresent()
+                && userRepo.findByUsername(user.getUsername()) != null;
+    }
 
 }

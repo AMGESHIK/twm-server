@@ -1,7 +1,6 @@
-package com.example.twm.service.impl;
+package com.example.twm.jwt;
 
 import com.example.twm.domain.Role;
-import com.example.twm.domain.jwt.JwtAuthentication;
 import io.jsonwebtoken.Claims;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -16,8 +15,8 @@ public final class JwtUtils {
     public static JwtAuthentication generate(Claims claims) {
         final JwtAuthentication jwtInfoToken = new JwtAuthentication();
         jwtInfoToken.setRoles(getRoles(claims));
-        jwtInfoToken.setFirstName(claims.get("firstName", String.class));
-        jwtInfoToken.setUsername(claims.getSubject());
+        jwtInfoToken.setUsername(claims.get("username", String.class));
+        jwtInfoToken.setMail(claims.getSubject());
         return jwtInfoToken;
     }
 
