@@ -2,16 +2,14 @@ package com.example.twm.jwt;
 
 import com.example.twm.domain.User;
 import com.example.twm.exception.AuthException;
+import com.example.twm.responses.LoginResponse;
 import com.example.twm.service.impl.UserService;
 import io.jsonwebtoken.Claims;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,14 +23,14 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
-    public JwtResponse login(@NonNull JwtRequest authRequest) {
+    public LoginResponse login(@NonNull JwtRequest authRequest) {
         final User user = userService.getByEmail(authRequest.getLogin())
                 .orElseThrow(() -> new AuthException("Пользователь не найден"));
         if (passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
             final String accessToken = jwtProvider.generateAccessToken(user);
             final String refreshToken = jwtProvider.generateRefreshToken(user);
             refreshStorage.put(user.getEmail(), refreshToken);
-            return new JwtResponse(accessToken, refreshToken);
+            return new LoginResponse(new JwtResponse(accessToken, refreshToken), user.getUsername());
         } else {
             throw new AuthException("Неправильный пароль");
         }

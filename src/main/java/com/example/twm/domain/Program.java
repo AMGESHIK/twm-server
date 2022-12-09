@@ -1,5 +1,6 @@
 package com.example.twm.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,10 +25,12 @@ public class Program {
     @Column(name = "photo_url")
     private String photoURL;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "program")
     private List<ProgramComposition> programComposition;
 }

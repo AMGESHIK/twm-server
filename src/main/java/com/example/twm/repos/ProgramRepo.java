@@ -9,8 +9,9 @@ import java.util.List;
 @Repository
 public interface ProgramRepo extends JpaRepository<Program, Long> {
 
-    List<Program> findByUserId(Long userId);
+    List<Program> findByUserIdOrderById(Long userId);
     Program findTopByUserIdOrderByIdDesc(Long UserId);
     Program findProgramById(Long id);
+
 
 }
