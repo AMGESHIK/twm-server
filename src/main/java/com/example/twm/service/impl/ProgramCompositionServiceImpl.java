@@ -25,4 +25,9 @@ public class ProgramCompositionServiceImpl implements ProgramCompositionService 
     public List<ProgramComposition> getProgramsCompositionOfThisProgram(Program program) {
         return programCompositionRepo.findProgramCompositionsByProgramOrderById(program);
     }
+
+    @Override
+    public void deleteAllByProgram(Program program) {
+        programCompositionRepo.deleteAllByProgram(program);
+    }
 }

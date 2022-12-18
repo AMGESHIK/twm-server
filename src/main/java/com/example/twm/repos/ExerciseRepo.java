@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ExerciseRepo extends JpaRepository<Exercise, Long> {
-
-    List<Exercise> findExerciseById(Long id);
+    Exercise findExerciseById(Long id);
+    List<Exercise> findAll();
 }

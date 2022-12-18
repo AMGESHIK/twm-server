@@ -12,6 +12,5 @@ public interface ProgramRepo extends JpaRepository<Program, Long> {
     List<Program> findByUserIdOrderById(Long userId);
     Program findTopByUserIdOrderByIdDesc(Long UserId);
     Program findProgramById(Long id);
-
-
+    void deleteProgramById(Long id);
 }

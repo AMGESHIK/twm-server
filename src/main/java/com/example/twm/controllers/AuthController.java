@@ -20,7 +20,7 @@ import java.util.Collections;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("*")
 public class AuthController {
     private final AuthService authService;
 
@@ -35,7 +35,6 @@ public class AuthController {
 
     @PostMapping("registration")
     public ResponseEntity<String> registration(@RequestBody User user) {
-        System.out.println(user.toString());
         if (!userService.userExist(user)) {
             user.setActive(true);
             user.setRoles(Collections.singleton(Role.USER));

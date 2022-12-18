@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ProgramCompositionRepo extends JpaRepository<ProgramComposition, Long> {
     List<ProgramComposition> findProgramCompositionsByProgramOrderById(Program program);
+    void deleteAllByProgram(Program program);
 }

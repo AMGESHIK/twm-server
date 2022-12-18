@@ -27,6 +27,7 @@ public class ProgramComposition {
     @JoinColumn(name = "program_id")
     private Program program;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    //    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Exercise exercise;
 }

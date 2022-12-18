@@ -8,4 +8,5 @@ import java.util.List;
 public interface ProgramCompositionService {
     void save(ProgramComposition programComposition);
     List<ProgramComposition> getProgramsCompositionOfThisProgram(Program program);
+    void deleteAllByProgram (Program program);
 }

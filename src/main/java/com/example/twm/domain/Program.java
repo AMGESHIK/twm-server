@@ -31,6 +31,6 @@ public class Program {
     private User user;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "program")
+    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProgramComposition> programComposition;
 }

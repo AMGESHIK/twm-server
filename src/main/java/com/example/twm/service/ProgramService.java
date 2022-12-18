@@ -10,4 +10,5 @@ public interface ProgramService {
     Program getLastAddedProgram(Long userId);
     void save(Program program);
     Program getById(Long id);
+    void deleteProgram(Long id);
 }
