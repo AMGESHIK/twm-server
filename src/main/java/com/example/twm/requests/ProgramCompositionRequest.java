@@ -2,8 +2,6 @@ package com.example.twm.requests;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-
 @Data
 public class ProgramCompositionRequest {
     private int numberTraining;

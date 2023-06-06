@@ -41,6 +41,7 @@ public class JwtProvider {
         final Date accessExpiration = Date.from(accessExpirationInstant);
         return Jwts.builder()
                 .setSubject(user.getEmail())
+                .setId(String.valueOf(user.getId()))
                 .setExpiration(accessExpiration)
                 .signWith(jwtAccessSecret)
                 .claim("roles", user.getRoles())
@@ -54,6 +55,7 @@ public class JwtProvider {
         final Date refreshExpiration = Date.from(refreshExpirationInstant);
         return Jwts.builder()
                 .setSubject(user.getEmail())
+                .setId(String.valueOf(user.getId()))
                 .setExpiration(refreshExpiration)
                 .signWith(jwtRefreshSecret)
                 .compact();

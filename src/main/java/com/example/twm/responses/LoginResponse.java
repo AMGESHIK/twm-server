@@ -9,4 +9,5 @@ import lombok.Getter;
 public class LoginResponse {
     private JwtResponse jwtResponse;
     private String username;
+    private Long id;
 }

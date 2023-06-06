@@ -48,7 +48,7 @@ public class WebSecurityConfig {
                         authz -> {
                             try {
                                 authz
-                                        .antMatchers("/auth/login", "/auth/token", "/auth/registration").permitAll()
+                                        .requestMatchers("/auth/login", "/auth/token", "/auth/registration", "/ws/**").permitAll()
                                         .anyRequest().authenticated()
                                         .and()
                                         .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)

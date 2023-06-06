@@ -1,15 +1,20 @@
 package com.example.twm.domain;
 
+import com.example.twm.domain.chat.ChatMessage;
+import com.example.twm.domain.chat.ChatRoom;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -59,6 +64,15 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private List<Program> programs;
 
+    @OneToMany(mappedBy = "sender", fetch = FetchType.EAGER)
+    private List<ChatMessage> chatMessages;
+
+    @ManyToMany
+    @JoinTable(name = "user_chatroom",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chatroom_id"))
+    @JsonIgnore
+    private List<ChatRoom> chatRooms;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
