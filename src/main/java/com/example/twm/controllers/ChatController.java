@@ -1,5 +1,6 @@
 package com.example.twm.controllers;
 
+import com.example.twm.domain.User;
 import com.example.twm.domain.chat.ChatMessage;
 import com.example.twm.domain.chat.ChatRoom;
 import com.example.twm.jwt.AuthService;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -61,12 +64,14 @@ public class ChatController {
     @GetMapping("/chats")
     public ResponseEntity<?> findChats() {
         List<ChatRoom> chatRooms = chatRoomService.getChatRooms(authService.getAuthInfo().getId());
-//        System.out.println(userService.findById(authService.getAuthInfo().getId()).get().getChatRooms());
+        System.out.println(userService.findById(authService.getAuthInfo().getId()).get().getChatRooms());
+
         List<ChatRoomResponse> chatRoomResponses = new ArrayList<>();
-        chatRooms.forEach(x -> x.getUsers().forEach(y -> {
-            if (y.getId() != authService.getAuthInfo().getId()) {
+        chatRooms.forEach(x  -> {
+            User companion = userService.findUsersByChatRoomsExcludingCurrentUser(Arrays.asList(x), authService.getAuthInfo().getId()).get(0);
+            if (companion.getId() != authService.getAuthInfo().getId()) {
                 var chatMessageOpt = chatMessageService.findLastMessageInChatRoom(x);
-                if(chatMessageOpt.isPresent()) {
+                if (chatMessageOpt.isPresent()) {
                     ChatMessage chatMessage = chatMessageOpt.get();
                     ChatMessageResponse chatMessageResponse = ChatMessageResponse
                             .builder()
@@ -78,14 +83,15 @@ public class ChatController {
                     ChatRoomResponse chatRoomResponse = ChatRoomResponse
                             .builder()
                             .chatId(x.getId())
-                            .userId(y.getId())
-                            .username(y.getUsername())
+                            .userId(companion.getId())
+                            .username(companion.getUsername())
                             .lastMessage(chatMessageResponse)
                             .build();
                     chatRoomResponses.add(chatRoomResponse);
                 }
             }
-        }));
+        });
+        System.out.println("\n" + chatRoomResponses.toString());
         return ResponseEntity.ok(chatRoomResponses);
     }
 

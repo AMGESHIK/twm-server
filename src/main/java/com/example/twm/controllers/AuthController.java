@@ -37,6 +37,7 @@ public class AuthController {
     public ResponseEntity<String> registration(@RequestBody User user) {
         if (!userService.userExist(user)) {
             user.setActive(true);
+            user.setPhoto("default_image.jpeg");
             user.setRoles(Collections.singleton(Role.USER));
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.saveUser(user);

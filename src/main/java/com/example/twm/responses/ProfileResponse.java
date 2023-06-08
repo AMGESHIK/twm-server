@@ -2,15 +2,15 @@ package com.example.twm.responses;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 @Builder
-@ToString
-public class ChatRoomResponse {
-    Long chatId;
+public class ProfileResponse {
     Long userId;
     String username;
-    ChatMessageResponse lastMessage;
-
+    String name;
+    String about;
+    String email;
+    String mobile;
+    String address;
 }

@@ -56,6 +56,13 @@ public class User implements UserDetails {
     @Column(name = "is_active")
     private boolean isActive;
 
+    @Column(name = "photo")
+    private String photo;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "mobile")
+    private String mobile;
+
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))

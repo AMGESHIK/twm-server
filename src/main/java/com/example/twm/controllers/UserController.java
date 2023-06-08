@@ -49,6 +49,4 @@ public class UserController {
         return ResponseEntity.badRequest().body("Нет пользователя с таким id");
     }
 
-
-
 }
