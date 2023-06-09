@@ -2,6 +2,9 @@ package com.example.twm.domain;
 
 import com.example.twm.domain.chat.ChatMessage;
 import com.example.twm.domain.chat.ChatRoom;
+import com.example.twm.domain.post.Post;
+import com.example.twm.domain.post.PostComments;
+import com.example.twm.domain.post.PostLikes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -80,6 +83,13 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "chatroom_id"))
     @JsonIgnore
     private List<ChatRoom> chatRooms;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "author")
+    private List<Post> posts;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private List<PostLikes> postLikes;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private List<PostComments> postComments;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
